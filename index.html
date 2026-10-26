@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caçador de Clientes - Agência IA</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #121212; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; padding: 20px; }
+        .container { background-color: #1e1e1e; padding: 30px; border-radius: 12px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        h1 { font-size: 22px; color: #00ff88; margin-bottom: 20px; }
+        p { font-size: 14px; color: #aaa; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: none; border-radius: 6px; background: #2a2a2a; color: #fff; font-size: 16px; }
+        input:focus { outline: 1px solid #00ff88; }
+        button { width: 100%; padding: 15px; background-color: #00ff88; color: #000; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-bottom: 15px; }
+        button:hover { background-color: #00cc6a; }
+        .resultado { background: #2a2a2a; padding: 15px; border-radius: 6px; font-size: 14px; text-align: left; display: none; word-wrap: break-word; }
+        .resultado span { color: #00ff88; font-weight: bold; }
+        a { color: #00ff88; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Caçador de Clientes</h1>
+    <p>Digite o nicho e a cidade/bairro. O sistema vai abrir o Maps e gerar a mensagem.</p>
+    
+    <input type="text" id="nicho" placeholder="O que procurar? (ex: Barbearia)" value="Barbearia">
+    <input type="text" id="local" placeholder="Onde? (ex: Centro, São Paulo - SP)">
+    
+    <button onclick="buscar()">Procurar no Maps e Gerar Mensagem</button>
+    
+    <div class="resultado" id="boxMensagem">
+        <p style="margin-bottom: 5px; color: #fff;">Mensagem pronta para enviar:</p>
+        <div id="textoMensagem" style="color: #ccc; font-style: italic;"></div>
+    </div>
+</div>
+
+<script>
+    function buscar() {
+        let nicho = document.getElementById('nicho').value;
+        let local = document.getElementById('local').value;
+        
+        if(!nicho || !local) {
+            alert("Preenche os dois campos aí, chefe!");
+            return;
+        }
+
+        let urlMaps = `https://www.google.com/maps/search/${encodeURIComponent(nicho)}+em+${encodeURIComponent(local)}`;
+        window.open(urlMaps, '_blank');
+
+        let mensagem = `Olá! Vi o perfil de vocês no Google Maps e reparei que ainda não têm um site próprio. Eu crio sites profissionais, rápidos e prontos para receber agendamentos pelo WhatsApp. Fiz um modelo de ${nicho} que ficou incrível e posso te mostrar sem compromisso. Se tiver interesse, me chama aqui!`;
+        
+        document.getElementById('textoMensagem').innerText = mensagem;
+        document.getElementById('boxMensagem').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
